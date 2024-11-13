@@ -16,22 +16,33 @@ export const TodoApp = () => {
     setInput(e.target.value)
   }
 
-  const deleteTodo = (id: number) => {
-    const newTodos = todos.filter(todo => todo.id !== id);
-    setTodos(newTodos)
+  const deleteTodo = (id: string) => {
+    setTodos(prevState => {
+      const newTodos = prevState.filter(todo => todo.id !== id);  
+      return newTodos
+    })
   }
 
   const addTodo = (): void => {
-    setTodos([
+    const newTodos = [
       ...todos,
       {
-        id: Date.now(),
+        id: String(Date.now()),
         title: input,
         completed: false,
-        f: deleteTodo
+        deleteF: deleteTodo,
+        checkF: todoCompleted
       }
-    ]);
+    ]
+    setTodos(newTodos);
     setInput('');
+  }
+
+  const todoCompleted = (id: string) => {
+    console.log('id de tarea a modificar', id)
+    setTodos(prevState => {
+      return prevState.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo )
+    })
   }
 
   useEffect(() => {
@@ -47,7 +58,7 @@ export const TodoApp = () => {
           value={input}
           placeholder="ingresa tu tarea pendiente aqui." 
           type="text"/>
-          <button onClick={addTodo}>Add</button>
+          <button onClick={() => addTodo()}>Add</button>
         </div>
         <Todos todos={todos} />
     </div>

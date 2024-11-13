@@ -11,12 +11,13 @@ export const Todos: React.FC<arrTodos> = ({ todos }) => {
     <ul>
       {  
       todos.map(t => {
-        const { id, title, completed, f } = t;
+        const { id, title, completed, deleteF, checkF } = t;
         return <Todo 
         id={id} 
         title={title} 
         completed={completed} 
-        f={f} 
+        deleteF={deleteF} 
+        checkF={checkF}
         key={id}/>
       })
       }

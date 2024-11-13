@@ -1,6 +1,7 @@
 export interface TodoProps {
-    id: number;
+    id: string;
     title: string;
     completed: boolean;
-    f?: (id: number) => void;
+    deleteF: (id: string) => void;
+    checkF: (id: string) => void;
 }

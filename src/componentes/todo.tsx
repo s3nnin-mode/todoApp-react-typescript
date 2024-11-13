@@ -1,15 +1,15 @@
 import { TodoProps } from "../types/todo";
 
-export const Todo: React.FC<TodoProps> = ({id, title, completed, f }) => {
+export const Todo: React.FC<TodoProps> = ({id, title, completed, deleteF, checkF }) => {
   
 
   return (
     <li id={id} className={ completed ? 'completed' : '' } >
       <div>
-        <input type="checkbox" />
+        <input type="checkbox" onChange={() => checkF(id)}/>
         <p> { title } </p>
       </div>
-      <button onClick={ () => f?.(id) }> Delete </button>
+      <button onClick={ () => deleteF(id) }> Delete </button>
     </li>
   )
 }
